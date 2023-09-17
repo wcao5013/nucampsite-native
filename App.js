@@ -1,4 +1,5 @@
 import Main from "./screens/MainComponent";
+import * as React from 'react';
 
 export default function App() {
   return <Main />;
