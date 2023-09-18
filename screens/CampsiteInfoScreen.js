@@ -1,7 +1,7 @@
-import RenderCampsite from '../features/campsites/RenderCampsite'
+import RenderCampsite from '../features/campsites/RenderCampsite';
 
-const CampsiteInfroScreen = (props) => {
-    return <RenderCampsite campsite={props.campsite} />
-}
+const CampsiteInfoScreen = (props) => {
+    return <RenderCampsite campsite={props.campsite} />;
+};
 
-export default CampsiteInfroScreen
+export default CampsiteInfoScreen;
