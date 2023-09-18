@@ -1,4 +1,14 @@
 import Main from './screens/MainComponent';
+import React, {
+  AppRegistry,
+  Component,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Image
+} from 'react-native';
 
 export default function App() {
     return <Main />;
