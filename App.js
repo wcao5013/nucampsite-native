@@ -1,8 +1,7 @@
-import Main from "./screens/MainComponent";
-import * as React from 'react';
+import Main from './screens/MainComponent';
 
 export default function App() {
-  return <Main />;
+    return <Main />;
 }
 
 const styles = StyleSheet.create({
