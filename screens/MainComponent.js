@@ -55,21 +55,29 @@ const AboutNavigator = () => {
     const Stack = createStackNavigator()
 
     return (
-        <Stack.Navigator>
-                <Stack.Screen name='About' />
+        <Stack.Navigator  screenOptions={screenOptions}>
+                <Stack.Screen 
+                    name='About' 
+                    component={AboutScreen}/>
         </Stack.Navigator>
     )
 }
+
 
 const ContactNavigator = () => {
     const Stack = createStackNavigator()
 
     return (
-        <Stack.Navigator>
-            <Stack.Screen name='Contact' options={{ title: 'Contact Us'}} />
+        <Stack.Navigator screenOptions={screenOptions}>
+            <Stack.Screen 
+                name='Contact' 
+                component={ContactScreen}
+                options={{ title: 'Contact Us'}} />
         </Stack.Navigator>
     )
 }
+
+
 
 const Main = () => {
     return (
@@ -97,6 +105,7 @@ const Main = () => {
                 <Drawer.Screen
                     name='About'
                     component={AboutNavigator}
+                    options={{title: 'About Us'}}
                 />
                 <Drawer.Screen
                     name='Contact'
