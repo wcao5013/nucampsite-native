@@ -24,7 +24,7 @@ const AboutScreen = () => {
                 <Card>
                     <Card.Title>Community partners</Card.Title>
                     <Card.Divider />
-                    {partners.partnersAray.map((partner) => {
+                    {partners.partnersArray.map((partner) => {
                         return (
                             <ListItem key={partner.id}>
                                 <Avatar source={{ uri: baseUrl + partner.image}} rounded />
