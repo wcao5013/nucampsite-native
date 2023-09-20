@@ -17,13 +17,15 @@ const Mission = () => {
     )
 }
 const AboutScreen = () => {
+        const [partners, setPartners] = useState(PARTNERS);
 
-        <ScrollView>
-            <Mission />
-            <Card>
+        return (
+            <ScrollView>
+                <Mission />
+                <Card>
                     <Card.Title>Community partners</Card.Title>
                     <Card.Divider />
-                    {PARTNERS.map((partner) => {
+                    {partners.map((partner) => {
                         return (
                             <ListItem key={partner.id}>
                                 <Avatar source={partner.image} rounded />
@@ -34,10 +36,11 @@ const AboutScreen = () => {
                             </ListItem>
                         )
                     })}
-            </Card>
-        </ScrollView>
+                </Card>
+            </ScrollView>
+        )
 }
 
-//Not sure how this get this correct?
+
 
 export default AboutScreen
