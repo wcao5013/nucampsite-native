@@ -38,10 +38,6 @@ const CampsiteInfoScreen = ({ route }) => {
         setText('')
     }
 
-  
-
-    
-
     const renderCommentItem = ({ item }) => {
         return (
             
@@ -94,7 +90,7 @@ const CampsiteInfoScreen = ({ route }) => {
                 <View style={styles.modal}>
                     <Rating
                         showRating
-                        startingValue={`${rating}`}
+                        startingValue={rating}
                         imageSize={40}
                         onFinishRating={(rating) => setRating(rating)}
                         style={{paddingVertical: 10}}
@@ -103,17 +99,17 @@ const CampsiteInfoScreen = ({ route }) => {
                     <Input
                         placeholder='Author'
                         leftIcon={{ type: 'font-awesome', name: 'user-o' }}
-                        leftIconContainerStyle={{padding: 10}}
-                        onChangeText={(rating) => setRating(rating)}
-                        value={comments}
+                        leftIconContainerStyle={{ paddingRight: 10 }}
+                        onChangeText={(author) => setAuthor(author)}
+                        value={author}
                     />
 
                     <Input
                         placeholder='Comment'
                         leftIcon={{ type: 'font-awesome', name: 'comment-o' }}
-                        leftIconContainerStyle={{padding: 10}}
-                        onChangeText={(rating) => setRating(rating)}
-                        value={comments}
+                        leftIconContainerStyle={{ paddingRight: 10 }}
+                        onChangeText={(text) => setText(text)}
+                        value={text}
                     />
 
                     <View style={{margin: 10}}>
