@@ -1,15 +1,24 @@
-import { StyleSheet, Text, View, PanResponder, Alert } from 'react-native';
+import { StyleSheet, Text, View, PanResponder, Alert, Button } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
 import { baseUrl } from '../../shared/baseUrl';
 import * as Animatable from 'react-native-animatable';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { Rating, Input } from 'react-native-elements'
+import { useDispatch } from 'react-redux';
+import Modal from '../../screens/CampsiteInfoScreen'
+
 
 const RenderCampsite = (props) => {
     const { campsite } = props;
 
     const view = useRef()
 
+    //This just for comment form modal
+    
+    //End of comment form modal
+
     const isLeftSwipe = ({ dx }) => dx < -200;
+    const isRightSwipe = ({ dx }) => dx > 200
 
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
@@ -38,13 +47,19 @@ const RenderCampsite = (props) => {
                     { cancelable: false }
                 );
             }
+            else if (isRightSwipe(gestureState)) {
+               
+            }
         },
+        
         onPanResponderGrant: () => {
             view.current
                 .rubberBand(1000)
                 .then((endState) => console.log(endState.finished ? 'finished' : 'canceled'))
         }
     });
+
+    
 
     if (campsite) {
         return (
@@ -111,6 +126,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'white',
         fontSize: 20
+    },
+    modal: {
+        justifyContent: 'center',
+        margin: 20,
     }
 });
 
