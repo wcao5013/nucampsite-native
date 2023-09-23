@@ -5,7 +5,6 @@ import * as Animatable from 'react-native-animatable';
 import { useRef, useState } from 'react';
 import { Rating, Input } from 'react-native-elements'
 import { useDispatch } from 'react-redux';
-import Modal from '../../screens/CampsiteInfoScreen'
 
 
 const RenderCampsite = (props) => {
