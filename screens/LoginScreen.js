@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Image } from 'react-native';
 import { CheckBox, Input, Button, Icon } from 'react-native-elements';
 import * as SecureStore from 'expo-secure-store';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import * as ImagePicker from 'expo-image-picker';
+import { baseUrl } from '../shared/baseUrl';
+import logo from '../assets/images/logo.png';
 
 const LoginTab = ({ navigation }) => {
     const [username, setUsername] = useState('');
@@ -101,12 +104,13 @@ const LoginTab = ({ navigation }) => {
 };
 
 const RegisterTab = () => {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [email, setEmail] = useState('')
-    const [remember, setRemember] = useState(false)
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [remember, setRemember] = useState(false);
+    const [imageUrl, setImageUrl] = useState(baseUrl + 'images/logo.png');
 
     const handleRegister = () => {
         const userInfo = {
@@ -116,14 +120,66 @@ const RegisterTab = () => {
             lastName,
             email,
             remember
+        };
+        console.log(JSON.stringify(userInfo));
+        if (remember) {
+            SecureStore.setItemAsync(
+                'userinfo',
+                JSON.stringify({
+                    username,
+                    password
+                })
+            ).catch((error) => console.log('Could not save user info', error));
+        } else {
+            SecureStore.deleteItemAsync('userinfo').catch((error) =>
+                console.log('Could not delete user info', error)
+            );
         }
-    console.log(JSON.stringify(userInfo))
-    
     };
-    
+
+    const getImageFromCamera = async () => {
+        const cameraPermission =
+            await ImagePicker.requestCameraPermissionsAsync();
+
+        if (cameraPermission.status === 'granted') {
+            const capturedImage = await ImagePicker.launchCameraAsync({
+                allowsEditing: true,
+                aspect: [1, 1]
+            });
+            if (capturedImage.assets) {
+                console.log(capturedImage.assets[0]);
+                setImageUrl(capturedImage.assets[0].uri);
+            }
+        }
+    };
+
     return (
         <ScrollView>
             <View style={styles.container}>
+                <View style={styles.imageContainer}>
+                    <Image
+                        source={{ uri: imageUrl }}
+                        loadingIndicatorSource={logo}
+                        style={styles.image}
+                    />
+                    <Button title='Camera' onPress={getImageFromCamera} />
+                </View>
+                <Input
+                    placeholder='Username'
+                    leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                    onChangeText={(text) => setUsername(text)}
+                    value={username}
+                    containerStyle={styles.formInput}
+                    leftIconContainerStyle={styles.formIcon}
+                />
+                <Input
+                    placeholder='Password'
+                    leftIcon={{ type: 'font-awesome', name: 'key' }}
+                    onChangeText={(text) => setPassword(text)}
+                    value={password}
+                    containerStyle={styles.formInput}
+                    leftIconContainerStyle={styles.formIcon}
+                />
                 <Input
                     placeholder='First Name'
                     leftIcon={{ type: 'font-awesome', name: 'user-o' }}
@@ -142,7 +198,7 @@ const RegisterTab = () => {
                 />
                 <Input
                     placeholder='Email'
-                    leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                    leftIcon={{ type: 'font-awesome', name: 'envelope-o' }}
                     onChangeText={(text) => setEmail(text)}
                     value={email}
                     containerStyle={styles.formInput}
@@ -171,10 +227,9 @@ const RegisterTab = () => {
                         buttonStyle={{ backgroundColor: '#5637DD' }}
                     />
                 </View>
-                
             </View>
         </ScrollView>
-    )
+    );
 };
 
 const Tab = createBottomTabNavigator();
@@ -244,7 +299,18 @@ const styles = StyleSheet.create({
         margin: 20,
         marginRight: 40,
         marginLeft: 40
+    },
+    imageContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        margin: 10
+    },
+    image: {
+        width: 60,
+        height: 60
     }
-})
+});
 
 export default LoginScreen;
