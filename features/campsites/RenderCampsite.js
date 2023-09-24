@@ -47,29 +47,7 @@ const RenderCampsite = (props) => {
                 );
             }
             else if (isRightSwipe(gestureState)) {
-                //Trying to add Modal to this section, not sure
-                
-                Alert.alert(
-                    'Add Modal',
-                    'How to add modal here? ' +
-                        campsite.name +
-                        ' to comments',
-                    [
-                        {
-                            text: 'Cancel',
-                            style: 'cancel',
-                            onPress: () => console.log('Cancel Pressed')
-                        },
-                        {
-                            text: 'OK',
-                            onPress: () =>
-                                props.isFavorite
-                                    ? console.log('Already set as a favorite')
-                                    : props.markFavorite()
-                        }
-                    ],
-                    { cancelable: false }
-                );
+                props.onShowModal();
             }
         },
         
